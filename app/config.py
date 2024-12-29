@@ -1,6 +1,6 @@
 import os
 
-class Config(object):
+class Config(object): 
     USER = os.environ.get('USER','djoni')
     PASSWORD = os.environ.get('PASSWORD', 'Nehby1984!')
     HOST = os.environ.get('HOST', '127.0.0.1')
