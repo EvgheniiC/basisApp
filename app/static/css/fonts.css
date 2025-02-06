@@ -1,0 +1,23 @@
+/* FONT MONTSERRAT */
+
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/Montserrat/Montserrat-Regular.ttf')
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    src: url('../fonts/Montserrat/Montserrat-Bold.ttf')
+}
+
+/* FONTS Russo One */
+/*@font-face {*/
+/*  font-family: 'Russo One';*/
+/*  font-style: normal;*/
+/*  font-weight: 400;*/
+/*  src: url('../fonts/RussoOne/RussoOne-Regular.ttf');*/
+/*}*/

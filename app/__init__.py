@@ -1,21 +1,31 @@
 from flask import Flask
-from .extensions import db
+
+from .bundles import register_bundles, bundles
+from .extensions import db, migrate, login_manager, assets
 from .config import Config
 from .routes.user import user
 from .routes.post import post
-from .routes.main import main
 
 
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
 
-    # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///project.db'
     app.register_blueprint(user)
     app.register_blueprint(post)
-    app.register_blueprint(main)
 
     db.init_app(app)
+    migrate.init_app(app, db)
+    login_manager.init_app(app)
+    assets.init_app(app)
+
+    # LOGIN MANAGER
+    login_manager.login_view = 'user.login'
+    login_manager.login_message = 'You can not get access to this page'
+    login_manager.login_message_category = 'info'
+
+    # ASSETS
+    register_bundles(assets , bundles)
 
     with app.app_context():
         db.create_all()

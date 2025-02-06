@@ -1,0 +1,66 @@
+{% extends 'main/base.html' %}
+
+{% block title  %} All Themas {% endblock %}
+
+{% block style  %}
+    {% assets 'post_all_css' %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}">
+    {% endassets %}
+{% endblock %}
+
+{% block content %}
+    <form method="post" class="form-control d-flex flex-row gap-2" id="teacherForm">
+        {{ form.csrf_token }}
+        {{ form.teacher }}
+        <input type="submit" class="btn btn-success" value="show">
+    </form>
+
+<div class="table-responsive custom-table-responsive ">
+    <table class="table custom-table">
+        <thead>
+        <tr>
+            <th scope="col">Teacher</th>
+            <th scope="col">Thema</th>
+            <th scope="col">Student</th>
+            <th scope="col">Todo</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+        <tr scope="row">
+            <td>{{ post.author.name }}</td>
+            <td>{{ post.subject }}</td>
+
+            <td>
+                {% with student = user.query.get(post.student) %}
+                    {{ student.name }}
+                {% endwith %}
+            </td>
+                <td>
+                    {% if current_user.is_authenticated and post.author.id == current_user.id %}
+
+
+    <!--                # <span class="fa fa-edit"></span> icon from awesome edit-->
+    <!--                # <span class="fa fa-edit"></span> icon from awesome edit-->
+    <!--                <a href="{{ url_for('post.update', id=post.id) }}" class="btn btn-sm btn-secondary"> <span class="fa fa-edit"></span> </a>-->
+<!--                    <a href="" class="btn btn-sm btn-danger"> <span class="fa fa-trash"></span></a>-->
+                        <a href="{{ url_for('post.update', id=post.id) }}" class="btn btn-sm btn-secondary"> Edit </a>
+                        <a href="{{ url_for('post.delete', id=post.id) }}" class="btn btn-sm btn-danger"> Delete</a>
+                    {% endif %}
+
+                </td>
+
+            <th scope="row"></th>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+
+{% block script  %}
+    {% assets 'post_all_js' %}
+       <script type="text/javascript" scr="{{ ASSET_URL }}"> </script>
+    {% endassets %}
+{% endblock %}
